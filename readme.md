@@ -12,9 +12,13 @@ Criar dois cruds utilizando a versão mais atual do PHP um para produtos e outro
 
 #### 💻 Pré-requisitos
 
-Para rodar a API é necessário ter o Docker e o Docker-compose instalados e configurados na maquina.
+Para rodar a API é necessário ter o Composer, Docker e o Docker-compose instalados e configurados na maquina.
 
-Apos a instalação é só clonar o repositório e na pasta do repositório rodar o comando:
+Primeiro clone o repositorio e rode o comando para atualizar as dependencias e namespaces do composer na pasta do repositorio.
+```shell
+composer install
+```
+Apos a instalação é só rodar o comando:
 
 ```shell
 docker-compose up -d --build
