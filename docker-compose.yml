@@ -1,0 +1,53 @@
+version : '3.2'
+
+services: 
+  server:
+    image: nginx:latest
+    restart: always
+    container_name: server
+    ports: 
+      - 8080:80
+    volumes:
+    - ./cfg/logs:/logs
+    - ./cfg/server/defaut.conf:/etc/nginx/conf.d/default.conf
+    - ./cfg/server/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - TZ=America/Sao_Paulo
+
+  api_node_1:
+    image: nginx:latest
+    restart: always
+    container_name: api_node_1
+    ports: 
+      - 80
+    volumes:
+      - ./cfg/api/site.conf:/etc/nginx/conf.d/default.conf
+      - ./api:/api
+    environment:
+      - TZ=America/Sao_Paulo
+    links:
+      - api
+
+  api_node_2:
+    image: nginx:latest
+    restart: always
+    container_name: api_node_2
+    ports: 
+      - 80
+    volumes:
+      - ./cfg/api/site.conf:/etc/nginx/conf.d/default.conf
+      - ./api:/api
+    environment:
+      - TZ=America/Sao_Paulo
+    links:
+      - api
+
+  api:
+        build: api
+        restart: always
+        container_name: api
+        volumes:
+            - ./api:/api
+            - ./cfg/api/fpm.conf:/usr/local/etc/php-fpm.d/www.conf  
+        environment:
+          - TZ=America/Sao_Paulo
